@@ -1,0 +1,133 @@
+# Ignore node_modules and dependencies
+node_modules/
+jspm_packages/
+bower_components/
+.npm/
+.pnp/
+.pnp.js
+
+# Ignore Python artifacts
+*.pyc
+*.pyo
+*.pyd
+__pycache__/
+*.whl
+*.egg
+*.egg-info/
+dist/
+pip-log.txt
+
+# Ignore Ruby artifacts
+*.gem
+.bundle/
+.rvm/
+.rbenv/
+vendor/bundle/
+
+# Ignore Java/Scala artifacts
+*.class
+*.war
+*.jar
+*.ear
+*.scala-compiled
+target/
+.gradle/
+build/
+
+# Ignore compiled binaries and intermediate files
+*.o
+*.out
+*.obj
+*.exe
+*.dll
+*.so
+*.dylib
+*.a
+*.lib
+*.apk
+*.ipa
+
+# Ignore logs and temporary files
+*.log
+*.tmp
+*.swp
+*.swo
+*.swn
+*.pid
+*.seed
+*.pid.lock
+
+# Ignore OS and IDE-specific files
+.DS_Store
+._*
+Thumbs.db
+ehthumbs.db
+desktop.ini
+*.bak
+*.old
+*.orig
+*.~*
+.idea/
+.vscode/
+.vscode-test/
+*.iml
+*.ipr
+*.iws
+*.sublime-workspace
+*.sublime-project
+
+# Ignore Git-related files
+.git/
+.gitignore
+.gitmodules
+.gitkeep
+*.gitlab-ci.yml
+
+# Ignore Docker-related files
+.dockerignore
+Dockerfile*
+docker-compose*.yml
+
+# Ignore environment and config files
+.env
+.env.*
+*.cfg
+*.conf
+*.ini
+*.yaml
+*.yml
+*.toml
+
+# Ignore coverage and test reports
+coverage/
+*.lcov
+*.coverage
+.nyc_output/
+junit.xml
+test-results.xml
+reports/
+
+# Ignore database and cache files
+*.db
+*.sqlite
+*.sql
+*.db-shm
+*.db-wal
+tmp/
+cache/
+session/
+
+# Ignore package management files
+package-lock.json
+yarn.lock
+pnpm-lock.yaml
+composer.lock
+Gemfile.lock
+
+# Ignore third-party tools and dependencies
+venv/
+.venv/
+env/
+virtualenv/
+_venv/
+__venv__/
