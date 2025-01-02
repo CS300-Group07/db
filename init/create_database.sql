@@ -32,12 +32,12 @@ CREATE TABLE products (
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     product_url TEXT UNIQUE NOT NULL,
-    retailer VARCHAR(255) NOT NULL
+    retailer VARCHAR(255) NOT NULL,
+    image_url TEXT NOT NULL
 );
 
 CREATE TABLE product_views (
     view_id SERIAL PRIMARY KEY,
-    -- user_id INT NULL,
     user_id INT,
     product_id INT NOT NULL,
     view_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
@@ -67,42 +67,6 @@ CREATE TABLE product_media (
     FOREIGN KEY (product_id) REFERENCES products(product_id)
 );
 
-CREATE TABLE categories (
-    category_id SERIAL PRIMARY KEY,
-    name TEXT NOT NULL,
-    description TEXT,
-    parent_id INT,
-    FOREIGN KEY (parent_id) REFERENCES categories(category_id)
-);
-
-CREATE TABLE product_categories (
-    product_id INT NOT NULL,
-    category_id INT NOT NULL,
-    PRIMARY KEY (product_id, category_id),
-    FOREIGN KEY (product_id) REFERENCES products(product_id) ON DELETE CASCADE,
-    FOREIGN KEY (category_id) REFERENCES categories(category_id) ON DELETE CASCADE
-);
-
-CREATE TABLE order_head (
-    order_id SERIAL PRIMARY KEY,
-    user_id INT NOT NULL,
-    total_amount NUMERIC(10, 2) NOT NULL,
-    order_status VARCHAR(20) CHECK (order_status IN ('Pending', 'Processing', 'Shipped', 'Delivered', 'Cancelled')) DEFAULT 'Pending',
-    payment_status VARCHAR(20) CHECK (payment_status IN ('Pending', 'Paid', 'Failed', 'Refunded')) DEFAULT 'Pending',
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    FOREIGN KEY (user_id) REFERENCES users(user_id)
-);
-
-CREATE TABLE order_items (
-    order_item_id SERIAL PRIMARY KEY,
-    order_id INT NOT NULL,
-    product_id INT NOT NULL,
-    quantity INT NOT NULL,
-    price NUMERIC(10, 2) NOT NULL,
-    FOREIGN KEY (order_id) REFERENCES order_head(order_id),
-    FOREIGN KEY (product_id) REFERENCES products(product_id)
-);
-
 CREATE TABLE reviews (
     review_id SERIAL PRIMARY KEY,
     product_id INT NOT NULL,
@@ -114,39 +78,15 @@ CREATE TABLE reviews (
     FOREIGN KEY (user_id) REFERENCES users(user_id)
 );
 
-CREATE TABLE shopping_cart (
-    cart_id SERIAL PRIMARY KEY,
+CREATE TABLE wishlist (
     user_id INT NOT NULL,
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    FOREIGN KEY (user_id) REFERENCES users(user_id)
-);
-
-CREATE TABLE cart_items (
-    cart_item_id SERIAL PRIMARY KEY,
-    cart_id INT NOT NULL,
-    product_id INT NOT NULL,
-    quantity INT NOT NULL DEFAULT 1,
-    added_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    FOREIGN KEY (cart_id) REFERENCES shopping_cart(cart_id),
-    FOREIGN KEY (product_id) REFERENCES products(product_id)
-);
-
-CREATE TABLE wish_lists (
-    wish_list_id SERIAL PRIMARY KEY,
-    user_id INT NOT NULL,
-    name VARCHAR(100) DEFAULT 'My Wish List',
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    FOREIGN KEY (user_id) REFERENCES users(user_id)
-);
-
-CREATE TABLE wish_list_items (
-    wish_list_item_id SERIAL PRIMARY KEY,
-    wish_list_id INT NOT NULL,
     product_id INT NOT NULL,
     added_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    FOREIGN KEY (wish_list_id) REFERENCES wish_lists(wish_list_id),
-    FOREIGN KEY (product_id) REFERENCES products(product_id)
+    PRIMARY KEY (user_id, product_id),
+    FOREIGN KEY (user_id) REFERENCES users(user_id) ON DELETE CASCADE,
+    FOREIGN KEY (product_id) REFERENCES products(product_id) ON DELETE CASCADE
 );
+
 
 CREATE TABLE conversations (
     user_id INT NOT NULL,
