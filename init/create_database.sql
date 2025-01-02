@@ -37,7 +37,8 @@ CREATE TABLE products (
 
 CREATE TABLE product_views (
     view_id SERIAL PRIMARY KEY,
-    user_id INT NULL,
+    -- user_id INT NULL,
+    user_id INT,
     product_id INT NOT NULL,
     view_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     session_id VARCHAR(100),
@@ -147,3 +148,12 @@ CREATE TABLE wish_list_items (
     FOREIGN KEY (product_id) REFERENCES products(product_id)
 );
 
+CREATE TABLE conversations (
+    user_id INT NOT NULL,
+    conversation_id UUID NOT NULL DEFAULT gen_random_uuid(),
+    conversation_content JSONB NOT NULL,  -- Stores conversation as a JSON array or object
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    PRIMARY KEY (conversation_id),
+    FOREIGN KEY (user_id) REFERENCES users(user_id)
+);
