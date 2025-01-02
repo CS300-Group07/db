@@ -1,14 +1,15 @@
 -- Create the database
-CREATE DATABASE vbmatch;
+-- CREATE DATABASE haha;
 
 -- Connect to the database
-\c vbmatch;
+\c haha;
 
 -- Create the tables
 CREATE TABLE users (
     user_id SERIAL PRIMARY KEY,
-    first_name VARCHAR(50) NOT NULL,
-    last_name VARCHAR(50) NOT NULL,
+    username VARCHAR(50) NOT NULL,
+    first_name VARCHAR(50),
+    last_name VARCHAR(50),
     email VARCHAR(100) NOT NULL UNIQUE,
     password_hash VARCHAR(255) NOT NULL,
     phone VARCHAR(20),
@@ -29,7 +30,9 @@ CREATE TABLE products (
     price NUMERIC(10, 2) NOT NULL,
     stock_quantity INT DEFAULT 0,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    product_url TEXT UNIQUE NOT NULL,
+    retailer VARCHAR(255) NOT NULL
 );
 
 CREATE TABLE product_views (
@@ -143,3 +146,4 @@ CREATE TABLE wish_list_items (
     FOREIGN KEY (wish_list_id) REFERENCES wish_lists(wish_list_id),
     FOREIGN KEY (product_id) REFERENCES products(product_id)
 );
+
